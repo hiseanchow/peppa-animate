@@ -1,0 +1,63 @@
+*{margin: 0;padding: 0;}
+
+body {
+    background-color: rgb(0, 43, 54);
+    color: rgb(222, 222, 222);
+}
+
+#editor {
+    font-size: 14px;
+    border: 1px solid #ccc;
+    margin: 1em;
+    overflow: auto;
+    padding: 0.5em;
+    width: 37vw;
+    height: 95vh;
+    line-height: 1.5em;
+    box-sizing: border-box
+}
+
+#paper {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 60vw;
+    height: 95vh;
+    background: #84cef5;
+    margin: 1em;
+    padding: 0.5em;
+    color: #222;
+    overflow: auto;
+    box-sizing: border-box
+}
+
+#paper div{
+    transition: 0.5s all
+}
+
+/* 代码高亮 */
+
+.token.comment {color: rgb(99, 157, 214)}
+.token.selector {color: #a6e22e}
+.token.punctuation {color: #f8f8f2}
+.token.property {color: #f92672}
+.token.function {color: #e6db74}
+
+@media screen and (max-width:540px) {
+    #editor {
+        height: 35vh !important;
+        width: 100vw !important;
+        margin: 0;
+        border: none
+    }
+    #paper {
+        height: 65vh !important;
+        width: 100vw !important;
+        top: 35vh !important;
+        left: 0;
+        margin: 0
+    }
+    .peppa{
+        transform: translate(-50%, -50%) scale(0.5)
+    }
+}
