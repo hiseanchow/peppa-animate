@@ -14,7 +14,13 @@ body {
     width: 37vw;
     height: 95vh;
     line-height: 1.5em;
-    box-sizing: border-box
+    box-sizing: border-box;
+    transition: 0.5s all
+}
+
+#editor.hide{
+    opacity: 0;
+    width: 0;
 }
 
 #paper {
@@ -28,7 +34,12 @@ body {
     padding: 0.5em;
     color: #222;
     overflow: auto;
-    box-sizing: border-box
+    box-sizing: border-box;
+    transition: 0.5s all
+}
+
+#paper.full-screen{
+    width: 100vw;
 }
 
 #paper div{
@@ -43,21 +54,60 @@ body {
 .token.property {color: #f92672}
 .token.function {color: #e6db74}
 
+.btn-group{
+    text-align: right;
+}
+
+.btn-group .btn{
+    display: inline-block;
+    line-height: 36px;
+    padding: 0 10px;
+    border: 3px solid #f8c6e0;
+    color: #fff;
+    background-color: #ea655d;
+    cursor: pointer;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    margin: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
 @media screen and (max-width:540px) {
     #editor {
-        height: 35vh !important;
-        width: 100vw !important;
+        height: 35vh;
+        width: 100vw;
         margin: 0;
         border: none
     }
     #paper {
-        height: 65vh !important;
-        width: 100vw !important;
-        top: 35vh !important;
+        height: 65vh;
+        width: 100vw;
+        top: 35vh;
         left: 0;
         margin: 0
     }
-    .peppa{
-        transform: translate(-50%, -50%) scale(0.6) !important
+    #paper .peppa{
+        transform: translate(-50%, -50%) scale(0.6)
+    }
+
+    #editor.hide{
+        opacity: 0;
+        width: 100vw;
+        height: 0;
+    }
+
+    #paper.full-screen{
+        height: 100vh;
+        top: 0;
+    }
+
+    .btn-group{
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        bottom: 0;
+        left: 0;
     }
 }
