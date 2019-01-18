@@ -1,25 +1,12 @@
-﻿let editor = document.querySelector('#editor pre');
-let editorWrap = document.querySelector('#editor');
-let styleTag = document.createElement('style');
-document.head.appendChild(styleTag);
-let hideCodeBtn = document.querySelector('#hidecode-btn');
-let stopBtn = document.querySelector('#stop-btn');
-let paper = document.querySelector('#paper');
-let codeHide = false;
-let stop = false;
-
-let CssCode = `/* 
+let cssCode = `/* 
 * 小猪佩奇身上纹，掌声送给社会人
 * 今天就用CSS画一个小猪佩奇
 * 别眨眼，现在开始画。
 */
 .peppa{
-    position: absolute;
-    top: 50%;
-    left: 50%;
     height: 320px;
     width: 160px;
-    transform: translate(-50%, -50%);
+    position: relative;
 }
 /* 先画一个头 */
 .head{
@@ -35,8 +22,8 @@ let CssCode = `/*
 }
 /* 两只耳朵 */
 .ear, .ear-right, .ear-left{
-    z-index: -2;
     position: absolute;
+    z-index: -2;
     width: 27px;
     height: 40px;
     border: 6px solid #f5a8cb;
@@ -156,7 +143,7 @@ let CssCode = `/*
     top: 46px;
     right: 20px;
 }
-/* 头画完了，接下来是身子 */
+/* 头画完了，接下来是裙子 */
 .dress{
     margin-top: -40px;
     margin-left: -16px;
@@ -169,6 +156,8 @@ let CssCode = `/*
     border-top-left-radius: 152px;
     border-bottom-left-radius: 12px;
     border-top-right-radius: 0px;
+    position: relative;
+    z-index: 1;
 }
 .dress:after{
     position: absolute;
@@ -192,7 +181,7 @@ let CssCode = `/*
 }
 .hand-right{
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     width: 100px;
     height: 10px;
     margin-top: 40px;
@@ -227,7 +216,7 @@ let CssCode = `/*
 }
 .hand-left{
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     width: 72px;
     height: 9px;
     margin-top: 56px;
@@ -288,52 +277,4 @@ let CssCode = `/*
 }
 /* OK，完成了。*/
 `
-
-let timer;
-let n = 0;
-
-function writeCss(code){
-    timer = setInterval(function (){
-        n+=5;
-        if(!codeHide){
-            editor.innerHTML = Prism.highlight(code.substring(0, n), Prism.languages.css);
-        }
-        styleTag.innerHTML = code.substring(0, n);
-        editorWrap.scrollTop = 50000;
-        if (n >= code.length){
-            clearInterval(timer);
-            paper.classList.add('full-screen');
-            editorWrap.classList.add('hide');
-            hideCodeBtn.innerText = '显示代码';
-            codeHide = true
-        }else if(stop === true){
-            clearInterval(timer)
-        }
-    }, 30);
-    return {timer,n}
-}
-
-writeCss(CssCode);
-
-stopBtn.addEventListener('click',(e)=>{
-    if(stop){
-        writeCss(CssCode,n);
-        e.target.innerText = '停止动画';
-    }else{
-        e.target.innerText = '开启动画';
-    }
-    stop = !stop;
-});
-
-hideCodeBtn.addEventListener('click',(e)=>{
-    if(codeHide){
-        paper.classList.remove('full-screen');
-        editorWrap.classList.remove('hide');
-        e.target.innerText = '隐藏代码';
-    }else{
-        paper.classList.add('full-screen');
-        editorWrap.classList.add('hide');
-        e.target.innerText = '显示代码';
-    }
-    codeHide = !codeHide;
-});
+module.exports = cssCode;
