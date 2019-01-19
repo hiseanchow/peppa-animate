@@ -1,7 +1,7 @@
 ﻿import cssCode from './csscode.js';
-import peppabody from './peppabody.js';
-import { editor, editorWrap } from './editor.js';
-import { btnWrap, showHideCodeBtn, swichAnimateBtn } from './buttons.js';
+import peppabody from '../views/peppabody.js';
+import { editor, editorWrap } from '../views/editor.js';
+import { btnWrap, showHideCodeBtn, swichAnimateBtn } from '../views/buttons.js';
 import Prism from 'prismjs'
 
 let styleTag = document.createElement('style');
@@ -13,11 +13,12 @@ document.head.appendChild(styleTag);
 document.body.appendChild(editorWrap);
 document.body.appendChild(paper)
 
-let codeHide = true;
-let complete = false;
-let stop = true;
-let timer;
-let n = 0;
+let codeHide = true,
+    complete = false,
+    stop = true,
+    init = true,
+    timer,
+    n = 0;
 
 function writeCss(code) {
     timer = setInterval(function () {
@@ -29,11 +30,14 @@ function writeCss(code) {
         editorWrap.scrollTop = 50000;
         if (n >= code.length) {
             clearInterval(timer);
-            paper.classList.remove('collapse');
-            editorWrap.classList.remove('show');
-            showHideCodeBtn.innerText = '显示代码';
-            swichAnimateBtn.innerText = '重新开始'
-            codeHide = complete = stop = true
+            if (!complete) {
+                paper.classList.remove('collapse');
+                editorWrap.classList.remove('show');
+                showHideCodeBtn.innerText = '显示代码';
+                swichAnimateBtn.innerText = '重新开始';
+                codeHide = true;
+            }
+            complete = stop = true;
         } else if (stop) {
             clearInterval(timer)
         }
@@ -48,14 +52,24 @@ swichAnimateBtn.addEventListener('click', (e) => {
         if (complete) {
             editor.innerHTML = "";
             styleTag.innerHTML = "";
+            init = true
+            complete = false
+            n = 0
         }
-        codeHide = false
-        showHideCodeBtn.classList.add('show')
-        btnWrap.classList.remove('init')
-        editorWrap.classList.add('show');
-        paper.classList.add('collapse');
+        if (init) {
+            init = false;
+            btnWrap.classList.remove('init');
+            editorWrap.classList.add('show');
+            paper.classList.add('collapse');
+            codeHide = false
+            showHideCodeBtn.classList.add('show')
+            setTimeout(()=> {
+                writeCss(cssCode, n)
+            }, 500)
+        } else {
+            writeCss(cssCode, n);
+        }
         e.target.innerText = '停止动画';
-        writeCss(cssCode, n);
     } else {
         e.target.innerText = '开启动画';
     }
@@ -67,6 +81,7 @@ showHideCodeBtn.addEventListener('click', (e) => {
         paper.classList.add('collapse');
         editorWrap.classList.add('show');
         e.target.innerText = '隐藏代码';
+        writeCss(cssCode, n);
     } else {
         paper.classList.remove('collapse');
         editorWrap.classList.remove('show');

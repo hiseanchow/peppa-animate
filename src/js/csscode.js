@@ -1,7 +1,7 @@
 let cssCode = `/* 
 * 小猪佩奇身上纹，掌声送给社会人
-* 今天就用CSS画一个小猪佩奇
-* 别眨眼，现在开始画。
+* 今天用CSS画一个小猪佩奇
+* 别眨眼，现在开始
 */
 .peppa{
     height: 320px;
@@ -23,7 +23,6 @@ let cssCode = `/*
 /* 两只耳朵 */
 .ear, .ear-right, .ear-left{
     position: absolute;
-    z-index: -2;
     width: 27px;
     height: 40px;
     border: 6px solid #f5a8cb;
@@ -249,7 +248,7 @@ let cssCode = `/*
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 }
-/* 最后是两只腿 */
+/* 最后是两条腿 */
 .leg, .leg-right, .leg-left{
     height: 45px;
     width: 12px;
@@ -275,6 +274,12 @@ let cssCode = `/*
     margin-left: 90px;
     margin-top: -16px;
 }
-/* OK，完成了。*/
+/* 
+* OK，完成了。
+* author: ZhouShuo
+* email: zhoushuozh@gmail.com
+* time: 2018/5/17
+* git: https://zhoushuo.me/peppa-animate/
+*/
 `
 module.exports = cssCode;
