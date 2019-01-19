@@ -81,7 +81,10 @@ showHideCodeBtn.addEventListener('click', (e) => {
         paper.classList.add('collapse');
         editorWrap.classList.add('show');
         e.target.innerText = '隐藏代码';
-        writeCss(cssCode, n);
+        if (complete) {
+            editor.innerHTML = Prism.highlight(cssCode, Prism.languages.css);
+            editorWrap.scrollTop = 50000;
+        }
     } else {
         paper.classList.remove('collapse');
         editorWrap.classList.remove('show');
